@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import useWebAnimations from "@wellyshen/use-web-animations";
 
 function AliceJava() {
+
+    let Playbackrate = 1;
+
     const sceneryFrames = [
         { transform: "translateX(100%)" },
         { transform: "translateX(-100%)" },
@@ -22,10 +25,10 @@ function AliceJava() {
         timing: sceneryTimingBackground,
         onUpdate: ({ animation }) => {
             // animation.currentTime = animation.effect.getTiming().duration / 2;
-            console.log(animation.currentTime)
         },
     });
 
+    // console.log(background1.getAnimation().playbackRate)
 
     const background2 = useWebAnimations({
         keyframes: sceneryFrames,
@@ -45,8 +48,8 @@ function AliceJava() {
 
     const spriteFrames = [
         { transform: 'translateY(0)' },
-        { transform: 'translateY(-100%)' }   
-      ];
+        { transform: 'translateY(-100%)' }
+    ];
 
     const red_queen_and_alice = useWebAnimations({
         keyframes: spriteFrames,
@@ -56,9 +59,20 @@ function AliceJava() {
             duration: 600,
             playbackRate: 1,
             iterations: Infinity
-          }
+        }
     });
-    
+
+    useEffect(() => {
+        document.addEventListener("click", () => {
+            Playbackrate *= 1.1;
+            red_queen_and_alice.getAnimation().playbackRate = Playbackrate
+
+        })
+
+
+
+    })
+
 
     return (
         <div className="wrapper">
