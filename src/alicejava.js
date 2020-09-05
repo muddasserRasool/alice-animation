@@ -4,7 +4,7 @@ import useWebAnimations from "@wellyshen/use-web-animations";
 
 function AliceJava() {
 
-    let Playbackrate = 1;
+    
 
     const sceneryFrames = [
         { transform: "translateX(100%)" },
@@ -62,6 +62,7 @@ function AliceJava() {
     const sceneries = [foreground1, foreground2, background1, background2];
 
     useEffect(() => {
+        let Playbackrate = 1;
         const foreground1Movement = foreground1.getAnimation()
         const background1Movement = background1.getAnimation()
 
