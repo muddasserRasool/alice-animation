@@ -25,7 +25,6 @@ function AliceJava() {
         timing: sceneryTimingBackground,
     
     });
-
     // console.log(background1.getAnimation().playbackRate)
 
     const background2 = useWebAnimations({
