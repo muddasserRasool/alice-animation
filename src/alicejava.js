@@ -23,9 +23,7 @@ function AliceJava() {
     const background1 = useWebAnimations({
         keyframes: sceneryFrames,
         timing: sceneryTimingBackground,
-        onUpdate: ({ animation }) => {
-            // animation.currentTime = animation.effect.getTiming().duration / 2;
-        },
+    
     });
 
     // console.log(background1.getAnimation().playbackRate)
@@ -62,12 +60,47 @@ function AliceJava() {
         }
     });
 
+    const sceneries = [foreground1, foreground2, background1, background2];
+
     useEffect(() => {
+        const foreground1Movement = foreground1.getAnimation()
+        const background1Movement = background1.getAnimation()
+
+        foreground1Movement.currentTime = foreground1Movement.effect.getTiming().duration / 2;
+        background1Movement.currentTime = background1Movement.effect.getTiming().duration / 2;
+
         document.addEventListener("click", () => {
             Playbackrate *= 1.1;
             red_queen_and_alice.getAnimation().playbackRate = Playbackrate
-
+            adjustBackgroundPlayback();
         })
+
+        setInterval(() => {
+            /* Set decay */
+            if (Playbackrate > .4) {
+                Playbackrate *= .9;
+                red_queen_and_alice.getAnimation().playbackRate = Playbackrate
+            }
+            adjustBackgroundPlayback();
+        }, 3000);
+
+        const adjustBackgroundPlayback = () => {
+            if (Playbackrate < .8) {
+                sceneries.forEach(function (anim) {
+                    anim.getAnimation().playbackRate = Playbackrate / 2 * -1;
+                });
+            } else if (Playbackrate > 1.2) {
+                sceneries.forEach(function (anim) {
+                    anim.getAnimation().playbackRate = Playbackrate / 2;
+                });
+            } else {
+                sceneries.forEach(function (anim) {
+                    anim.getAnimation().playbackRate = 0;
+                });
+            }
+        }
+        adjustBackgroundPlayback();
+
 
 
 
